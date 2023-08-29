@@ -4,10 +4,19 @@ import re
 import subprocess
 
 
+def __check_regex_ignore(regexs, name):
+    for regex in regexs:
+        if re.search(regex, name):
+            return True
+
+    return False
+
+
 def review(config):
     path_source = config['path_source']
     regex_file = config['regexFile']
     arquivo_config = config['config']
+    regex_ignore = config['regexIgnore']
 
     comments = []
 
@@ -15,7 +24,7 @@ def review(config):
         for file in files:
             file_path = os.path.join(root, file)
 
-            if re.search(regex_file, file_path):
+            if re.search(regex_file, file_path) and not __check_regex_ignore(regex_ignore, file):
                 if not __verificar_indentacao_arquivo(file_path, arquivo_config):
                     path_relative = file_path.replace(path_source, "")[1:]
                     comments.append({

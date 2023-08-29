@@ -8,8 +8,12 @@ Arquivo config.json
 
 ```json
 {
+  "regexFile": "",
+  "regexIgnore": [
+  ],
   "config": ""
 }
+
 ```
 
 Dependencias
