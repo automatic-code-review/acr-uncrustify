@@ -17,6 +17,7 @@ def review(config):
     regex_file = config['regexFile']
     arquivo_config = config['config']
     regex_ignore = config['regexIgnore']
+    message = config['message']
 
     comments = []
 
@@ -29,7 +30,7 @@ def review(config):
                     path_relative = file_path.replace(path_source, "")[1:]
                     comments.append({
                         "id": __generate_md5(file_path),
-                        "comment": f"Indentação incorreta no arquivo {path_relative}",
+                        "comment": message.replace("${FILE_PATH}", path_relative),
                         "position": {
                             "language": "c++",
                             "path": path_relative,
